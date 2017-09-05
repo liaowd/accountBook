@@ -9,7 +9,8 @@ db.once('open',callback=>{
 var userSchema = new mongoose.Schema({
   "nick": String,
   "id":String,
-  "pwd": String
+  "pwd": String,
+  "signInTime":{type:Date,default:Date.now()}
 });
 
 //model

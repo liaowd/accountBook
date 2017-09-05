@@ -5,18 +5,29 @@ var dbs=require('../dbs/db.js')
 var userModel=dbs.usersModel;
 
 /* GET users listing. */
-router.post('/', function(req, res, next) {  
-//   res.send('respond with a resource');
-
-//   var user = new userModel({
-//     id:req.body.id,
-//     pwd:req.body.pwd
-//   })
-//   user.save(function (err, user) {
-//     if (err) return console.error(err);
-//   });
+router.post('/', function(req, res, next) {
+  //创建一个Model的实例，相当于在数据库中创建了一个集合（表）
+  var user = new userModel({       
+    nick:req.body.nick,
+    id:req.body.id,
+    pwd:req.body.pwd
+  })
+  userModel.findOne({id:req.body.id},function(err,doc){
+    if (err) return handleError(err);
+    if(doc===null){
+      // 没找到
+    }else{
+      
+    }
+  })
+  // user.save(function (err, user) {
+  //   if (err) {
+  //     console.log("错误")
+  //     return console.error(err);
+  //   }
+  // });
     
-  res.send(req.query)
+  res.send(req.body)
 });
 
 module.exports = router;
