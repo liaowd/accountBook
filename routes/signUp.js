@@ -7,27 +7,20 @@ var userModel=dbs.usersModel;
 /* GET users listing. */
 router.post('/', function(req, res, next) {
   //创建一个Model的实例，相当于在数据库中创建了一个集合（表）
-  var user = new userModel({       
-    nick:req.body.nick,
-    id:req.body.id,
-    pwd:req.body.pwd
-  })
   userModel.findOne({id:req.body.id},function(err,doc){
     if (err) return handleError(err);
-    if(doc===null){
-      // 没找到
+    if(doc!=null){
+      res.send({"msg":"此用户已存在"})
     }else{
-      
+      if(req.originalUrl == "/signup/"){
+        res.send({"msg":"注册操作"})
+
+      }else if(req.originalUrl == "/signup/test"){
+        res.send({"msg":"该id可以注册"})
+      }
     }
   })
-  // user.save(function (err, user) {
-  //   if (err) {
-  //     console.log("错误")
-  //     return console.error(err);
-  //   }
-  // });
-    
-  res.send(req.body)
+
 });
 
 module.exports = router;
